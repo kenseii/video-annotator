@@ -1,0 +1,40 @@
+video {
+  width: 100%;
+  height: auto;
+  /*height: 50%;*/
+  /*position: relative;*/
+  /*top: 0;*/
+  /*left: 0;*/
+}
+
+canvas {
+  width:100%;
+  /*background-color:rgba(255,0,0,0.5);*/
+
+}
+
+/* Make the canvas responsive but also depend to the video size */
+.canvas-container {
+  width: inherit !important;
+  height: 100% !important;
+}
+.upper-canvas{
+  width: 100% !important;
+  height: 100% !important;
+}
+.lower-canvas{
+  width: 100% !important;
+  height: 100% !important;
+}
+
+#video_overlays {
+  position: absolute;
+
+  /*background-color: rgba(0, 0, 0, 0.46);*/
+  z-index: 2;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 80px;
+}
+#video_box{position: relative; height: 100%}

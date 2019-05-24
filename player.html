@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="static/css/style.css" rel="stylesheet">
+
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+    <script src="static/js/fabric.min.js" type="text/javascript"></script>
+</head>
+<body>
+<div>
+    list all annotations from the storage
+    <p class="data" id="data">
+
+    </p>
+
+    <!------------------ Player --------------->
+    <div id="video_box">
+        <div id="video_overlays">
+            <canvas class="canvas" height="520px" id="canvas" width="1024px"></canvas>
+        </div>
+
+        <div>
+            <video controls="true" id="video" src="video1_1.mp4"/>
+        </div>
+    </div>
+
+</div>
+<script>
+
+    function chunk(arr, chunkSize) {
+        var R = [];
+        for (var i = 0, len = arr.length; i < len; i += chunkSize)
+            R.push(arr.slice(i, i + chunkSize));
+        return R;
+    }
+
+    // read the cookies and return annotations
+    //var canvases = document.cookie;
+    var canvases = document.cookie.match(new RegExp('(^| )' + "canvases" + '=([^;]+)'))[2];
+
+    var timings = document.cookie.match(new RegExp('(^| )' + "timings" + '=([^;]+)'))[2];
+
+    let canvas = new fabric.Canvas('canvas');
+
+    cookie_content = timings.split(";")[0];
+    cookie_content_clean = cookie_content.replace("[","");
+    cookie_content_cleaner = cookie_content_clean.replace("]","");
+    array_version = cookie_content_cleaner.split(",");
+    chunked = chunk(array_version, 7);
+
+    document.getElementById("data").innerHTML = canvases;
+
+    let canvases_json = JSON.parse(canvases);
+    console.log(canvases_json);
+
+    // loop in the canvas and call the
+
+
+    console.log(chunked);
+
+
+    // listen on time change and check the same start & end time in timings
+    var vid = document.getElementById("video");
+    vid.ontimeupdate = function () {
+        canvas.clear();
+        for(let i = 0; i < chunked.length; i++){
+
+         voText = new fabric.IText(canvases_json['objects'][i]["text"], {
+        fontFamily: 'arial black',
+        left: canvases_json['objects'][i]["left"],
+        top: canvases_json['objects'][i]["top"],
+        width: canvases_json['objects'][i]["width"],
+        height: canvases_json['objects'][i]["height"],
+    });
+        if(vid.currentTime >= chunked[i][0] && vid.currentTime <= chunked[i][1]){
+            console.log(canvases_json['objects'][i]["text"]);
+            voText.opacity = 1;
+            canvas.getObjects();
+      canvas.add(voText);
+        }
+
+        else {
+        voText.opacity = 0;
+        }
+
+    }
+
+
+   };
+
+
+    // bring their corresponding index
+    // show/hide object depending on the time
+
+
+      canvas.selection = false;
+      canvas.renderAll();
+      canvas.calcOffset();
+
+//     canvas.loadFromJSON(canvases.split(";")[0], canvas.renderAll.bind(canvas), function(o, object) {
+//     object.set('selectable', false);
+// });
+
+
+</script>
+</body>
+</html>
