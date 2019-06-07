@@ -12,3 +12,7 @@ The annotation texts are stored in as cookies in a json format then the player p
 
 ### Frontend framework
 :icecream:
+
+### Known issues
+
+The annotation frames loose on aspect ratio as their canvas get scaled on the video's size.
