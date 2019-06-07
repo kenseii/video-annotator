@@ -37,4 +37,7 @@ canvas {
   top: 0;
   bottom: 80px;
 }
-#video_box{position: relative; height: 100%}
+
+#video_box {
+    position: relative;
+}
