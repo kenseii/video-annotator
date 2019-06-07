@@ -1,4 +1,4 @@
-# Video-anotator
+# Video-annotator
 
 Video text annotation based on `fabric.js`, `reimg.js` and `whammy.js`.
 
