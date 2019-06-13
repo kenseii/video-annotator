@@ -192,11 +192,6 @@
                 </div>
             </div>
 
-
-            <!--    <video id="rightVideo" playsinline autoplay></video>-->
-            <!--    <video id="canvasVideo" playsinline autoplay></video>-->
-
-
         </div>
         <div class="col-md-4">
             list all annotations from the storage
@@ -218,7 +213,7 @@
     }
 
     // read the cookies and return annotations
-    //var canvases = document.cookie;
+
     var canvases = document.cookie.match(new RegExp('(^| )' + "canvases" + '=([^;]+)'))[2];
 
     var timings = document.cookie.match(new RegExp('(^| )' + "timings" + '=([^;]+)'))[2];
@@ -231,8 +226,6 @@
     array_version = cookie_content_cleaner.split(",");
     chunked = chunk(array_version, 7);
 
-    // set the content tobe the data
-    // document.getElementById("data").innerHTML = canvases;
 
     let canvases_json = JSON.parse(canvases);
     console.log(canvases_json);
